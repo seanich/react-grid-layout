@@ -58,6 +58,8 @@ class ReactGridLayout extends React.Component {
 
     // margin between items [x, y] in px
     margin: React.PropTypes.array,
+    // padding inside container [x, y] in px
+    containerPadding: React.PropTypes.array,
     // Rows have a static height, but you can change this based on breakpoints if you like
     rowHeight: React.PropTypes.number,
 
@@ -182,7 +184,8 @@ class ReactGridLayout extends React.Component {
    */
   containerHeight() {
     if (!this.props.autoSize) return;
-    return bottom(this.state.layout) * this.props.rowHeight + this.props.margin[1] + 'px';
+    var containerPaddingY = this.props.containerPadding ? this.props.containerPadding[1] : this.props.margin[1];
+    return bottom(this.state.layout) * this.props.rowHeight - this.props.margin[1] + containerPaddingY * 2 + 'px';
   }
 
   /**
@@ -336,6 +339,7 @@ class ReactGridLayout extends React.Component {
         containerWidth={this.state.width}
         cols={this.props.cols}
         margin={this.props.margin}
+        containerPadding={this.props.containerPadding || this.props.margin}
         rowHeight={this.props.rowHeight}
         isDraggable={false}
         isResizable={false}
@@ -372,6 +376,7 @@ class ReactGridLayout extends React.Component {
         containerWidth={this.state.width}
         cols={this.props.cols}
         margin={this.props.margin}
+        containerPadding={this.props.containerPadding || this.props.margin}
         rowHeight={this.props.rowHeight}
         moveOnStartChange={moveOnStartChange}
         cancel={this.props.draggableCancel}

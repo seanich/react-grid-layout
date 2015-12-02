@@ -21,6 +21,7 @@ export default class GridItem extends Component {
     containerWidth: React.PropTypes.number.isRequired,
     rowHeight: React.PropTypes.number.isRequired,
     margin: React.PropTypes.array.isRequired,
+    containerPadding: React.PropTypes.array.isRequired,
 
     // These are all in grid units
     x: React.PropTypes.number.isRequired,
@@ -104,10 +105,10 @@ export default class GridItem extends Component {
    */
   calcPosition(x: number, y: number, w: number, h: number): Position {
     var p = this.props;
-    var width = p.containerWidth - p.margin[0];
+    var width = p.containerWidth - p.containerPadding[0] * 2 + p.margin[0];
     var out = {
-      left: width * (x / p.cols) + p.margin[0],
-      top: p.rowHeight * y + p.margin[1],
+      left: width * (x / p.cols) + p.containerPadding[0],
+      top: p.rowHeight * y + p.containerPadding[1],
       width: width * (w / p.cols) - p.margin[0],
       height: h * p.rowHeight - p.margin[1]
     };
